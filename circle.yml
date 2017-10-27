@@ -1,4 +1,17 @@
+dependencies:
+  post:
+    - sudo apt-get install -y expect
+
 test:
   post:
+  - time ./config-expect.sh
   - time ./po-util.sh install
-  - cd build-test && ../po-util.sh photon build && ../po-util.sh electron clean && ../po-util.sh electron build
+  - time po photon build build-test/
+  - time po electron clean build-test/
+  - time po electron build build-test/
+  - time po P1 clean build-test/
+  - time po P1 build build-test/
+  - time po core clean build-test/
+  - time po core build build-test/
+  # - time po duo clean build-test/
+  # - time po duo build build-test/

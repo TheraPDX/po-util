@@ -1,15 +1,22 @@
-os:
-  - osx
-
+dist: trusty
 sudo: required
-
+language: bash
+services:
+  - docker
+before_install:
+  - sudo apt-get install -y expect
+install:
+  - ./config-expect.sh
+  - ./po-util.sh install
 script:
-  - time ./po-util.sh install
-  - cd build-test
-  - time ~/po-util.sh photon build
-  - time ~/po-util.sh electron clean
-  - time ~/po-util.sh electron build
-
-addons:
-    code_climate:
-        repo_token: 029106a12c53af689a6e41dae3f745b02654a46ec5a6d876562c2efb2ea62e4e
+  - po photon build build-test/
+  - po electron clean build-test/
+  - po electron build build-test/
+  - po P1 clean build-test/
+  - po P1 build build-test/
+  - po core clean build-test/
+  - po core build build-test/
+  # - po duo clean build-test/
+  # - po duo build build-test/
+  - po pi clean build-test/
+  - po pi build build-test/
